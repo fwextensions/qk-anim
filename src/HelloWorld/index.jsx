@@ -1,16 +1,28 @@
-import {spring} from 'remotion';
+import { spring } from "remotion";
 import {
 	AbsoluteFill,
 	interpolate,
 	Sequence,
 	useCurrentFrame,
 	useVideoConfig,
-} from 'remotion';
-import {Logo} from './Logo';
-import {Subtitle} from './Subtitle';
-import {Title} from './Title';
+} from "remotion";
+import { Subtitle } from "./Subtitle";
+import { Title } from "./Title";
+import Popup from "./Popup";
+import styled from "styled-components";
 
-export const HelloWorld = ({titleText, titleColor}) => {
+const PopupContainer = styled.div`
+	width: var(--anim-size);
+	height: var(--anim-size);
+	align-items: center;
+	justify-content: center;
+	display: flex;
+	flex-direction: column;
+	background: rgb(36,72,155);
+	background: linear-gradient(135deg, rgba(36,72,155,1) 0%, rgba(45,96,205,1) 50%, rgba(48,103,219,1) 100%);
+`;
+
+export const HelloWorld = ({ titleText, titleColor }) => {
 	const frame = useCurrentFrame();
 	const {durationInFrames, fps} = useVideoConfig();
 
@@ -36,20 +48,25 @@ export const HelloWorld = ({titleText, titleColor}) => {
 		[durationInFrames - 25, durationInFrames - 15],
 		[1, 0],
 		{
-			extrapolateLeft: 'clamp',
-			extrapolateRight: 'clamp',
+			extrapolateLeft: "clamp",
+			extrapolateRight: "clamp",
 		}
 	);
 
 	// A <AbsoluteFill> is just a absolutely positioned <div>!
 	return (
-		<AbsoluteFill style={{backgroundColor: 'white'}}>
-			<AbsoluteFill style={{opacity}}>
-				<AbsoluteFill style={{transform: `translateY(${logoTranslation}px)`}}>
+		<AbsoluteFill style={{ backgroundColor: "white" }}>
+			<AbsoluteFill style={{ opacity }}>
+				<PopupContainer>
+					<Popup />
+				</PopupContainer>
+{/*
+				<AbsoluteFill style={{ transform: `translateY(${logoTranslation}px)` }}>
 					<Logo />
 				</AbsoluteFill>
+*/}
 				{/* Sequences can shift the time for its children! */}
-				<Sequence from={35}>
+				<Sequence from={0}>
 					<Title titleText={titleText} titleColor={titleColor} />
 				</Sequence>
 				{/* The subtitle will only enter on the 75th frame. */}
