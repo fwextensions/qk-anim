@@ -11,7 +11,7 @@ import { Title } from "./Title";
 import Popup from "./Popup";
 import styled from "styled-components";
 
-const PopupContainer = styled.div`
+const AnimContainer = styled.div`
 	width: var(--anim-size);
 	height: var(--anim-size);
 	align-items: center;
@@ -22,7 +22,8 @@ const PopupContainer = styled.div`
 	background: linear-gradient(135deg, rgba(36,72,155,1) 0%, rgba(45,96,205,1) 50%, rgba(48,103,219,1) 100%);
 `;
 
-export const HelloWorld = ({ titleText, titleColor }) => {
+export default function QuicKey()
+{
 	const frame = useCurrentFrame();
 	const {durationInFrames, fps} = useVideoConfig();
 
@@ -57,9 +58,9 @@ export const HelloWorld = ({ titleText, titleColor }) => {
 	return (
 		<AbsoluteFill style={{ backgroundColor: "white" }}>
 			<AbsoluteFill style={{ opacity }}>
-				<PopupContainer>
+				<AnimContainer>
 					<Popup />
-				</PopupContainer>
+				</AnimContainer>
 {/*
 				<AbsoluteFill style={{ transform: `translateY(${logoTranslation}px)` }}>
 					<Logo />
@@ -67,7 +68,7 @@ export const HelloWorld = ({ titleText, titleColor }) => {
 */}
 				{/* Sequences can shift the time for its children! */}
 				<Sequence from={0}>
-					<Title titleText={titleText} titleColor={titleColor} />
+					<Title titleText={"derp"} titleColor={"red"} />
 				</Sequence>
 				{/* The subtitle will only enter on the 75th frame. */}
 				<Sequence from={75}>
