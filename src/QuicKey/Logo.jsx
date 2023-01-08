@@ -1,71 +1,37 @@
 import {
-	AbsoluteFill,
+	Easing,
+	Img,
 	interpolate,
-	spring,
+	staticFile,
 	useCurrentFrame,
-	useVideoConfig,
+	useVideoConfig
 } from 'remotion';
-import {Arc} from './Arc';
-import {Atom} from './Atom';
 
-export const Logo = () => {
-	const videoConfig = useVideoConfig();
+const options = {
+	extrapolateLeft: "clamp",
+	extrapolateRight: "clamp",
+	easing: Easing.in(Easing.cubic)
+};
+
+export default function Logo()
+{
+	const { durationInFrames } = useVideoConfig();
 	const frame = useCurrentFrame();
+	const outroRange = [15, durationInFrames];
+	const over = (range) => [frame, outroRange, range, options];
 
-	const development = spring({
-		config: {
-			damping: 100,
-			mass: 0.5,
-		},
-		fps: videoConfig.fps,
-		frame,
-	});
-
-	const rotationDevelopment = spring({
-		config: {
-			damping: 100,
-			mass: 0.5,
-		},
-		fps: videoConfig.fps,
-		frame,
-	});
-
-	const scale = spring({
-		frame,
-		config: {
-			mass: 0.5,
-		},
-		fps: videoConfig.fps,
-	});
-
-	const logoRotation = interpolate(
-		frame,
-		[0, videoConfig.durationInFrames],
-		[0, 360]
-	);
+	const opacity = interpolate(...over([1, 0]));
+	const blur = interpolate(...over([0, 40]));
+	const scale = interpolate(...over([1, 4]));
 
 	return (
-		<AbsoluteFill
+		<Img
+			src={staticFile("icon-300.png")}
 			style={{
-				transform: `scale(${scale}) rotate(${logoRotation}deg)`,
+				filter: `blur(${blur}px)`,
+				transform: `scale(${scale})`,
+				opacity,
 			}}
-		>
-			<Arc
-				rotateProgress={rotationDevelopment}
-				progress={development}
-				rotation={30}
-			/>
-			<Arc
-				rotateProgress={rotationDevelopment}
-				rotation={90}
-				progress={development}
-			/>
-			<Arc
-				rotateProgress={rotationDevelopment}
-				rotation={-30}
-				progress={development}
-			/>
-			<Atom scale={rotationDevelopment} />
-		</AbsoluteFill>
+		/>
 	);
-};
+}
