@@ -1,18 +1,19 @@
 import { Composition } from "remotion";
 import QuicKey from "./QuicKey";
-import GlobalStyles from "./GlobalStyles";
+import GlobalStyles, { AnimSize } from "./GlobalStyles";
 
-export const RemotionRoot = () => {
+export default function Root()
+{
 	return (
 		<>
 			<GlobalStyles />
 			<Composition
 				id="QuicKey"
 				component={QuicKey}
-				durationInFrames={150}
+				durationInFrames={60}
 				fps={30}
-				width={640}
-				height={480}
+				width={AnimSize}
+				height={AnimSize}
 			/>
 		</>
 	);

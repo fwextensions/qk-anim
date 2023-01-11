@@ -65,7 +65,7 @@ function Tab({
 {
 	return (
 		<TabItem>
-			<Favicon color={tab.favicon}/>
+			<Favicon color={tab.favicon} />
 			<Title width={tab.length} />
 		</TabItem>
 	);
@@ -75,7 +75,7 @@ export default function Popup()
 {
 	const frame = useCurrentFrame();
 	const { durationInFrames } = useVideoConfig();
-	const step = Math.floor(durationInFrames / 10);
+	const step = Math.floor(durationInFrames / 5);
 
 	return (
 		<Window>

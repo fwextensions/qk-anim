@@ -34,10 +34,10 @@ export default function QuicKey()
 {
 	return (
 		<AbsoluteFill style={blueBackground}>
-			<Sequence from={0} style={center}>
+			<Sequence from={20} style={center}>
 				<Popup />
 			</Sequence>
-			<Sequence from={15} durationInFrames={45} >
+			<Sequence from={0} durationInFrames={30} >
 				<Logo />
 			</Sequence>
 		</AbsoluteFill>

@@ -1,11 +1,10 @@
 import {
 	Easing,
 	Img,
-	interpolate,
 	staticFile,
-	useCurrentFrame,
 	useVideoConfig
-} from 'remotion';
+} from "remotion";
+import { useInterpolate } from "../useInterpolate";
 
 const options = {
 	extrapolateLeft: "clamp",
@@ -16,13 +15,14 @@ const options = {
 export default function Logo()
 {
 	const { durationInFrames } = useVideoConfig();
-	const frame = useCurrentFrame();
-	const outroRange = [15, durationInFrames];
-	const over = (range) => [frame, outroRange, range, options];
+	const outroRange = [durationInFrames - 15, durationInFrames];
+	const interpolate = useInterpolate(outroRange, options);
 
-	const opacity = interpolate(...over([1, 0]));
-	const blur = interpolate(...over([0, 40]));
-	const scale = interpolate(...over([1, 4]));
+	const { opacity, blur, scale } = interpolate({
+		opacity: [1, 0],
+		blur: [0, 40],
+		scale: [1, 4],
+	});
 
 	return (
 		<Img
