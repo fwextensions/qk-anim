@@ -12,7 +12,18 @@ const options = {
 	easing: Easing.in(Easing.cubic)
 };
 
-export default function Logo()
+function LogoImage({
+	style })
+{
+	return (
+		<Img
+			src={staticFile("icon-300.png")}
+			style={style}
+		/>
+	);
+}
+
+export function BlurOutLogo()
 {
 	const { durationInFrames } = useVideoConfig();
 	const outroRange = [durationInFrames - 15, durationInFrames];
@@ -25,13 +36,22 @@ export default function Logo()
 	});
 
 	return (
-		<Img
-			src={staticFile("icon-300.png")}
+		<LogoImage
 			style={{
 				filter: `blur(${blur}px)`,
 				transform: `scale(${scale})`,
 				opacity,
 			}}
 		/>
+	);
+}
+
+export function FadeInLogo()
+{
+	const interpolate = useInterpolate([0, 15], options);
+	const opacity = interpolate([0, 1]);
+
+	return (
+		<LogoImage style={{ opacity }} />
 	);
 }

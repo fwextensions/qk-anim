@@ -10,7 +10,7 @@ export default function Root()
 			<Composition
 				id="QuicKey"
 				component={QuicKey}
-				durationInFrames={60}
+				durationInFrames={110}
 				fps={30}
 				width={AnimSize}
 				height={AnimSize}
