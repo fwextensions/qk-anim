@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "description": "QuicKey animation",
   "scripts": {
-    "start": "remotion preview",
+    "start": "remotion preview --port=3003",
     "build": "remotion render QuicKey --codec=gif out/QuicKey.gif",
     "upgrade": "remotion upgrade",
     "test": "eslint src --ext ts,tsx,js,jsx"
@@ -11,14 +11,14 @@
   "repository": {},
   "license": "UNLICENSED",
   "devDependencies": {
-    "@remotion/eslint-config": "^3.0.0",
-    "eslint": "^8.30.0"
+    "@remotion/eslint-config": "^3.3.31",
+    "eslint": "^8.32.0"
   },
   "dependencies": {
-    "@remotion/cli": "3.3.27",
+    "@remotion/cli": "3.3.31",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "remotion": "3.3.27",
+    "remotion": "3.3.31",
     "styled-components": "^5.3.6"
   },
   "packageManager": "npm@8.1.2"
