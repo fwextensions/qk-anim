@@ -2,9 +2,8 @@ import {
 	Easing,
 	Img,
 	staticFile,
-	useVideoConfig
 } from "remotion";
-import { useInterpolate } from "../useInterpolate";
+import { useInterpolate } from "../timeline";
 
 const options = {
 	extrapolateLeft: "clamp",
@@ -25,15 +24,15 @@ function LogoImage({
 
 export function BlurOutLogo()
 {
-	const { durationInFrames } = useVideoConfig();
-	const outroRange = [durationInFrames - 15, durationInFrames];
-	const interpolate = useInterpolate(outroRange, options);
-
-	const { opacity, blur, scale } = interpolate({
-		opacity: [1, 0],
-		blur: [0, 40],
-		scale: [1, 4],
-	});
+	const { opacity, blur, scale } = useInterpolate(
+		["middle"],
+		{
+			opacity: [1, 0],
+			blur: [0, 40],
+			scale: [1, 4],
+		},
+		options
+	);
 
 	return (
 		<LogoImage
@@ -48,8 +47,7 @@ export function BlurOutLogo()
 
 export function FadeInLogo()
 {
-	const interpolate = useInterpolate([0, 15], options);
-	const opacity = interpolate([0, 1]);
+	const opacity = useInterpolate([0, "middle"], [0, 1], options);
 
 	return (
 		<LogoImage style={{ opacity }} />
