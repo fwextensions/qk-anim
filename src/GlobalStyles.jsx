@@ -10,4 +10,9 @@ export default createGlobalStyle`
 		--win-border-color: #ccc;
 		--win-bg-color: white;
 	}
+
+	[data-theme="dark"] {
+		--win-border-color: #666;
+		--win-bg-color: #202124;
+	}
 `;
