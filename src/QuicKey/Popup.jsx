@@ -15,13 +15,12 @@ const Window = styled.div`
 	height: var(--win-size);
 	border: 4px solid var(--win-border-color);
 	border-radius: ${unit(4/3)};
-	background: var(--win-bg-color);
+	background: var(--win-border-color);
 	position: relative;
 	overflow: hidden;
-	box-shadow: 0 6px 12px var(--shadow, rgba(0, 0, 0, 0.3));
+	box-shadow: 0 ${unit(4/3)} ${unit(8/3)} var(--shadow, rgba(0, 0, 0, 0.3));
 	display: flex;
 	flex-direction: column;
-	gap: var(--unit);
 `;
 const TitleBar = styled.div`
 	width: 100%;
@@ -30,13 +29,14 @@ const TitleBar = styled.div`
 `;
 const TitleBarButtons = styled.div`
 	width: ${unit(4.5)};
-	border-top: var(--unit) dotted #444;
-	margin: calc(0.25 * var(--unit)) 0 0 calc(0.25 * var(--unit));
+	border-top: var(--unit) dotted #666;
+	margin: calc(0.25 * var(--unit)) 0 0 calc(0.5 * var(--unit));
 `;
 const Contents = styled.div`
-	height: ${mul(5, "item-height")};
+	background: var(--win-bg-color);
+	padding-top: var(--unit);
 	position: relative;
-	overflow: hidden;
+	flex: 1;
 `;
 const Selection = styled.div`
 	top: calc(${({ index }) => index} * var(--item-height));
@@ -51,6 +51,8 @@ const Selection = styled.div`
 	}
 `;
 const TabList = styled.div`
+	height: ${mul(5, "item-height")};
+	overflow: hidden;
 	position: relative;
 `;
 const TabItem = styled.div`
@@ -61,6 +63,7 @@ const TabItem = styled.div`
 	align-items: center;
 	gap: calc(.5 * var(--unit));
 	display: flex;
+	position: relative;
 `;
 const Favicon = styled.div`
 	width: calc(.6 * var(--item-height));
@@ -94,6 +97,7 @@ export default function Popup()
 	const frame = useCurrentFrame();
 	const { durationInFrames } = useVideoConfig();
 	const step = Math.floor(durationInFrames / 5);
+	const selectedItem = Math.min(Math.floor(frame / step), 3);
 
 	return (
 		<Window>
@@ -101,8 +105,8 @@ export default function Popup()
 				<TitleBarButtons />
 			</TitleBar>
 			<Contents>
-				<Selection index={Math.floor(frame / step)} />
 				<TabList>
+					<Selection index={selectedItem} />
 					{tabs.map((tab, i) => <Tab key={i} tab={tab} />)}
 				</TabList>
 			</Contents>

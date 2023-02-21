@@ -12,7 +12,7 @@ export default createGlobalStyle`
 	}
 
 	[data-theme="dark"] {
-		--win-border-color: #666;
-		--win-bg-color: #202124;
+		--win-border-color: #424242;
+		--win-bg-color: rgb(50, 50, 50);
 	}
 `;
