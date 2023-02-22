@@ -28,11 +28,9 @@ function parseQuantity(
 	value,
 	config)
 {
-	const type = typeof value;
-
 	if (value in Tokens) {
 		return Tokens[value](config);
-	} else if (type === "number" || value == +value) {
+	} else if (typeof value === "number" || value === +value) {
 			// value is either a number or a string containing just a number, so cast
 			// it to a number
 		return +value;
@@ -56,6 +54,7 @@ function parseTime(
 	value,
 	config)
 {
+		// first check if value can be converted to a simple frame count
 	const frames = parseQuantity(value, config);
 
 	if (Number.isFinite(frames)) {

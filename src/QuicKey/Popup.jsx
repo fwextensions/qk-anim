@@ -1,31 +1,15 @@
-import {
-	spring,
-	useCurrentFrame,
-	useVideoConfig,
-} from "remotion";
+import { spring, useCurrentFrame, useVideoConfig } from "remotion";
 import styled from "styled-components";
+import { mult, unit } from "../utils/css";
 import { tabs } from "./tabs";
+import { Window } from "./Window";
 
 const SpringConfig = {
 	stiffness: 150
 };
 
-const mult = (value, variable) => `calc(${value} * var(--${variable}))`;
-const unit = (value = 1) => mult(value, "unit");
-
-const Window = styled.div`
-	--item-height: calc(3 * var(--unit));
-		
-	width: var(--win-size);
-	height: var(--win-size);
-	border: 4px solid var(--win-border-color);
-	border-radius: ${unit(4/3)};
-	background: var(--win-border-color);
-	position: relative;
-	overflow: hidden;
-	box-shadow: 0 ${unit(4/3)} ${unit(8/3)} var(--shadow, rgba(0, 0, 0, 0.3));
-	display: flex;
-	flex-direction: column;
+const PopupWindow = styled(Window)`
+	--item-height: ${unit(3)};
 `;
 const TitleBar = styled.div`
 	width: 100%;
@@ -35,7 +19,7 @@ const TitleBar = styled.div`
 const TitleBarButtons = styled.div`
 	width: ${unit(4.5)};
 	border-top: var(--unit) dotted #666;
-	margin: calc(0.25 * var(--unit)) 0 0 calc(0.5 * var(--unit));
+	margin: ${unit(.25)} 0 0 ${unit(.5)};
 `;
 const Contents = styled.div`
 	background: var(--win-bg-color);
@@ -44,7 +28,7 @@ const Contents = styled.div`
 	flex: 1;
 `;
 const Selection = styled.div`
-	top: calc(${({ index }) => index} * var(--item-height));
+	top: ${({ index }) => mult(index, "item-height")};
 	width: 94%;
 	height: var(--item-height);
 	margin: 0 3%;
@@ -66,19 +50,19 @@ const TabItem = styled.div`
 	padding: 0 2%;
 	flex-direction: row;
 	align-items: center;
-	gap: calc(.5 * var(--unit));
+	gap: ${unit(.5)};
 	display: flex;
 	position: relative;
 `;
 const Favicon = styled.div`
-	width: calc(.6 * var(--item-height));
-	height: calc(.6 * var(--item-height));
-	margin: calc(.2 * var(--item-height));
+	width: ${mult(.6, "item-height")};
+	height: ${mult(.6, "item-height")};
+	margin: ${mult(.2, "item-height")};
 	background: ${({ color }) => color};
 `;
 const Title = styled.div`
 	width: ${({ width }) => width}%;
-	height: calc(.3 * var(--item-height));
+	height: ${mult(.3, "item-height")};
 	background: #aaa;
 			
 	[data-theme="dark"] & {
@@ -119,7 +103,7 @@ export default function Popup({
 	});
 
 	return (
-		<Window>
+		<PopupWindow>
 			<TitleBar>
 				<TitleBarButtons />
 			</TitleBar>
@@ -129,6 +113,6 @@ export default function Popup({
 					{tabs.map((tab, i) => <Tab key={i} tab={tab} />)}
 				</TabList>
 			</Contents>
-		</Window>
+		</PopupWindow>
 	);
 }

@@ -12,8 +12,10 @@ const center = {
 
 export default function QuicKey()
 {
+		// set a property on the container so that the contents will use the dark
+		// versions of the colors
 	return (
-		<AbsoluteFill style={blueBackground}>
+		<AbsoluteFill style={blueBackground} {...{ "data-theme": "dark" }}>
 			<Sequence from={20} style={center}>
 				<Popup />
 			</Sequence>

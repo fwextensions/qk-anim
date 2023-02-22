@@ -3,7 +3,7 @@ import {
 	Img,
 	staticFile,
 } from "remotion";
-import { useInterpolate } from "../timeline";
+import { useInterpolate } from "../utils/timeline";
 
 const options = {
 	extrapolateLeft: "clamp",
