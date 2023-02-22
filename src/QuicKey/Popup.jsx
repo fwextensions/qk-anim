@@ -1,12 +1,17 @@
 import {
+	spring,
 	useCurrentFrame,
 	useVideoConfig,
 } from "remotion";
 import styled from "styled-components";
 import { tabs } from "./tabs";
 
-const unit = (value = 1) => `calc(${value} * var(--unit))`;
-const mul = (value, variable) => `calc(${value} * var(--${variable}))`;
+const SpringConfig = {
+	stiffness: 150
+};
+
+const mult = (value, variable) => `calc(${value} * var(--${variable}))`;
+const unit = (value = 1) => mult(value, "unit");
 
 const Window = styled.div`
 	--item-height: calc(3 * var(--unit));
@@ -51,7 +56,7 @@ const Selection = styled.div`
 	}
 `;
 const TabList = styled.div`
-	height: ${mul(5, "item-height")};
+	height: ${mult(5, "item-height")};
 	overflow: hidden;
 	position: relative;
 `;
@@ -92,12 +97,26 @@ function Tab({
 	);
 }
 
-export default function Popup()
+export default function Popup({
+	maxIndex = 3,
+	stepFrameCount = 15 })
 {
 	const frame = useCurrentFrame();
-	const { durationInFrames } = useVideoConfig();
-	const step = Math.floor(durationInFrames / 5);
-	const selectedItem = Math.min(Math.floor(frame / step), 3);
+	const { fps } = useVideoConfig();
+	const maxFrame = (maxIndex + 1) * stepFrameCount;
+	const selectedItem = Math.min(Math.floor(frame / stepFrameCount), maxIndex);
+		// each time the selection changes, the spring should loop 0..stepFrameCount
+	const selectionFrame = frame % stepFrameCount;
+		// give a little bounce to the selection movement, but stop after we've hit
+		// the last frame where the selection changes
+	const selectionJitter = frame >= maxFrame ? 0 : spring({
+		from: -.5,
+		to: 0,
+		frame: selectionFrame,
+		fps,
+		durationInFrames: stepFrameCount,
+		config: SpringConfig
+	});
 
 	return (
 		<Window>
@@ -106,7 +125,7 @@ export default function Popup()
 			</TitleBar>
 			<Contents>
 				<TabList>
-					<Selection index={selectedItem} />
+					<Selection index={selectedItem + selectionJitter} />
 					{tabs.map((tab, i) => <Tab key={i} tab={tab} />)}
 				</TabList>
 			</Contents>
