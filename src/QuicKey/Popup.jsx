@@ -1,7 +1,6 @@
 import { spring, useCurrentFrame, useVideoConfig } from "remotion";
 import styled from "styled-components";
 import { mult, unit } from "../utils/css";
-import { tabs } from "./tabs";
 import Window from "./Window";
 
 const SpringConfig = {
@@ -67,6 +66,7 @@ function Tab({
 }
 
 export default function Popup({
+	recents,
 	maxIndex = 3,
 	stepFrameCount = 15 })
 {
@@ -86,13 +86,15 @@ export default function Popup({
 		durationInFrames: stepFrameCount,
 		config: SpringConfig
 	});
+		// the first recent is the active tab, which we don't show in the results list
+	const resultsList = recents.slice(1);
 
 	return (
 		<Window>
 			<Contents>
 				<TabList>
 					<Selection index={selectedItem + selectionJitter} />
-					{tabs.map((tab, i) => <Tab key={i} tab={tab} />)}
+					{resultsList.map((tab, i) => <Tab key={i} tab={tab} />)}
 				</TabList>
 			</Contents>
 		</Window>
