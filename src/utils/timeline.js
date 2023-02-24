@@ -4,10 +4,11 @@ import { useCallback } from "react";
 const reString = (regex) => regex.toString().slice(1, -1);
 const regex = (...patterns) => new RegExp(patterns.map(reString).join(""));
 
-const UnitPattern = /((?:\d+(?:\.\d+)\s*)?(?:\w+|%)?)/;
+const DefaultFPS = 30;
+const OperandPattern = /((?:\d+(?:\.\d+)?\s*)?(?:\w+|%)?)/;
 const QuantityPattern = /^\s*(?<quantity>[\d.]+)\s*(?<units>\w+|%)\s*$/;
-const FormulaPattern = regex(UnitPattern, /\s*([-+])\s*/, UnitPattern);
-const FPSPattern = regex(UnitPattern, /\s*@\s*(\d+)/);
+const ExpressionPattern = regex(OperandPattern, /\s*([-+])\s*/, OperandPattern);
+const FPSPattern = regex(OperandPattern, /(?:\s*@\s*(\d+))?/);
 
 const seconds = (value,	{ fps }) => value * fps;
 const minutes = (value,	{ fps }) => value * 60 * fps;
@@ -64,7 +65,7 @@ function parseTime(
 		return frames;
 	}
 
-	const match = value.match(FormulaPattern);
+	const match = value.match(ExpressionPattern);
 
 	if (match) {
 			// we're not using named groups here because this pattern is made up out
@@ -131,9 +132,9 @@ export function useConfig(
 	const match = configString.match(FPSPattern);
 
 	if (match) {
-			// get the fps first so we can use it calculate the frame length of the
-			// duration in seconds or minutes
-		const fps = parseInt(match[2]);
+			// get the fps first so we can use it to convert the time-based duration
+			// into frames
+		const fps = parseInt(match[2]) || DefaultFPS;
 		const durationInFrames = parseQuantity(match[1], { fps });
 
 		return { durationInFrames, fps };

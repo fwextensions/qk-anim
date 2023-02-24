@@ -5,7 +5,7 @@ import { useConfig } from "./utils/timeline";
 
 export default function Root()
 {
-	const config = useConfig("4s @ 30");
+	const config = useConfig("4s @ 30fps");
 
 	return (
 		<>
