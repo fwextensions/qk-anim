@@ -2,30 +2,15 @@ import { spring, useCurrentFrame, useVideoConfig } from "remotion";
 import styled from "styled-components";
 import { mult, unit } from "../utils/css";
 import { tabs } from "./tabs";
-import { Window } from "./Window";
+import Window from "./Window";
 
 const SpringConfig = {
 	stiffness: 150
 };
 
-const PopupWindow = styled(Window)`
-	--item-height: ${unit(3)};
-`;
-const TitleBar = styled.div`
-	width: 100%;
-	height: ${unit(2)};
-	background: var(--win-border-color);
-`;
-const TitleBarButtons = styled.div`
-	width: ${unit(4.5)};
-	border-top: var(--unit) dotted #666;
-	margin: ${unit(.25)} 0 0 ${unit(.5)};
-`;
 const Contents = styled.div`
-	background: var(--win-bg-color);
+	--item-height: ${unit(3)};
 	padding-top: var(--unit);
-	position: relative;
-	flex: 1;
 `;
 const Selection = styled.div`
 	top: ${({ index }) => mult(index, "item-height")};
@@ -103,16 +88,13 @@ export default function Popup({
 	});
 
 	return (
-		<PopupWindow>
-			<TitleBar>
-				<TitleBarButtons />
-			</TitleBar>
+		<Window>
 			<Contents>
 				<TabList>
 					<Selection index={selectedItem + selectionJitter} />
 					{tabs.map((tab, i) => <Tab key={i} tab={tab} />)}
 				</TabList>
 			</Contents>
-		</PopupWindow>
+		</Window>
 	);
 }

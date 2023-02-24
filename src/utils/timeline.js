@@ -1,10 +1,13 @@
 import { interpolate, useCurrentFrame, useVideoConfig } from "remotion";
+import { useCallback } from "react";
 
 const reString = (regex) => regex.toString().slice(1, -1);
+const regex = (...patterns) => new RegExp(patterns.map(reString).join(""));
 
-const TokenPattern = /((?:[\d.]+\s*)?(?:\w+|%)?)/;
-const FormulaPattern = new RegExp([TokenPattern, /\s*([-+])\s*/, TokenPattern].map(reString).join(""));
+const UnitPattern = /((?:\d+(?:\.\d+)\s*)?(?:\w+|%)?)/;
 const QuantityPattern = /^\s*(?<quantity>[\d.]+)\s*(?<units>\w+|%)\s*$/;
+const FormulaPattern = regex(UnitPattern, /\s*([-+])\s*/, UnitPattern);
+const FPSPattern = regex(UnitPattern, /\s*@\s*(\d+)/);
 
 const seconds = (value,	{ fps }) => value * fps;
 const minutes = (value,	{ fps }) => value * 60 * fps;
@@ -30,9 +33,9 @@ function parseQuantity(
 {
 	if (value in Tokens) {
 		return Tokens[value](config);
-	} else if (typeof value === "number" || value === +value) {
+	} else if (typeof value === "number" || value == +value) {
 			// value is either a number or a string containing just a number, so cast
-			// it to a number
+			// it to a number.  we explicitly don't want strict equality here.
 		return +value;
 	} else {
 		const match = value.match(QuantityPattern);
@@ -109,4 +112,32 @@ export function useInterpolate(
 			[key]: interpolate(frame, parsedInput, outputRange, options),
 		}), {});
 	}
+}
+
+export function useTime()
+{
+	const config = useVideoConfig();
+	const time = useCallback(
+		(strings, ...values) => parseTime(String.raw({ raw: strings }, ...values), config),
+		[config]
+	);
+
+	return time;
+}
+
+export function useConfig(
+	configString)
+{
+	const match = configString.match(FPSPattern);
+
+	if (match) {
+			// get the fps first so we can use it calculate the frame length of the
+			// duration in seconds or minutes
+		const fps = parseInt(match[2]);
+		const durationInFrames = parseQuantity(match[1], { fps });
+
+		return { durationInFrames, fps };
+	}
+
+	throw new Error(`Unrecognized config value: ${configString}`);
 }
