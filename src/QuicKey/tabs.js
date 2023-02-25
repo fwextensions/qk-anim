@@ -26,12 +26,6 @@ export const tabs = [
 		"content": "background: linear-gradient(300deg, hsla(41, 64%, 91%, 1), hsla(157, 72%, 71%, 1))"
 	},
 	{
-		"id": 5,
-		"length": 38,
-		"favicon": "hsla(337, 73%, 70%, 1)",
-		"content": "background: linear-gradient(199deg, hsla(213, 68%, 93%, 1), hsla(337, 73%, 70%, 1))"
-	},
-	{
 		"id": 3,
 		"length": 71,
 		"favicon": "#f78e51",
@@ -41,6 +35,12 @@ export const tabs = [
 				repeating-linear-gradient(-50deg, #F7A37B, #F7A37B 1em, #FFDEA8 1em, #FFDEA8 2em, #D0E4B0 2em, #D0E4B0 3em, #7CC5D0 3em, #7CC5D0 4em, #00A2E1 4em, #00A2E1 5em, #0085C8 5em, #0085C8 6em);
 			font-size: 18px;
 			background-blend-mode: multiply;`
+	},
+	{
+		"id": 5,
+		"length": 38,
+		"favicon": "hsla(337, 73%, 70%, 1)",
+		"content": "background: linear-gradient(199deg, hsla(213, 68%, 93%, 1), hsla(337, 73%, 70%, 1))"
 	},
 	{
 		"id": 1,

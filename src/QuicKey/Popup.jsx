@@ -24,7 +24,7 @@ const Selection = styled.div`
 	}
 `;
 const TabList = styled.div`
-	height: ${mult(5, "item-height")};
+	height: ${mult(4, "item-height")};
 	overflow: hidden;
 	position: relative;
 `;
@@ -67,7 +67,7 @@ function Tab({
 
 export default function Popup({
 	recents,
-	maxIndex = 3,
+	maxIndex,
 	stepFrameCount = 15 })
 {
 	const frame = useCurrentFrame();

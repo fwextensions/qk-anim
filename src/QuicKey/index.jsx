@@ -1,9 +1,9 @@
 import { AbsoluteFill, Easing, Sequence } from "remotion";
 import { useTime } from "../utils/timeline";
+import { tabs } from "./tabs";
 import Popup from "./Popup";
 import Browser from "./Browser";
-import { LogoImage } from "./Logo";
-import { tabs } from "./tabs";
+import Logo from "./Logo";
 import Animate from "./Animate";
 
 const blueBackground = {
@@ -33,11 +33,13 @@ export default function QuicKey()
 				</Animate>
 			</Sequence>
 			<Sequence from={t`1.5s`} durationInFrames={t`2s`} style={center}>
-				<Popup recents={tabs} />
+				<Animate from="1.75s" duration=".25s" attributes={{ opacity: [1, 0] }} options={animateLogoOptions}>
+ 					<Popup recents={tabs} maxIndex={2} />
+				</Animate>
 			</Sequence>
 			<Sequence from={t`3.5s`} durationInFrames={t`1.5s`} style={center}>
 				<Animate from=".5s" duration=".5s" attributes={{ opacity: [1, 0] }} options={animateLogoOptions}>
-					<Browser recents={tabs} activeTab={4} />
+					<Browser recents={tabs} activeTab={3} />
 				</Animate>
 			</Sequence>
 			<Sequence
@@ -56,7 +58,7 @@ export default function QuicKey()
 					}}
 					options={animateLogoOptions}
 				>
-					<LogoImage />
+					<Logo />
 				</Animate>
 			</Sequence>
 			<Sequence
@@ -74,7 +76,7 @@ export default function QuicKey()
 					}}
 					options={animateLogoOptions}
 				>
-					<LogoImage />
+					<Logo />
 				</Animate>
 			</Sequence>
 		</AbsoluteFill>
