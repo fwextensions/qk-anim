@@ -1,3 +1,4 @@
+	// the patterned backgrounds below are from https://bennettfeely.com/gradients/
 export const tabs = [
 	{
 		"id": 9,

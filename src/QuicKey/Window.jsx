@@ -2,8 +2,6 @@ import styled from "styled-components";
 import { unit } from "../utils/css";
 
 const WindowContainer = styled.div`
-	width: var(--win-size);
-	height: var(--win-size);
 	border: 4px solid var(--win-border-color);
 	border-radius: ${unit(4 / 3)};
 	background: var(--win-border-color);

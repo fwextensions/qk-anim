@@ -11,13 +11,18 @@ const options = {
 	easing: Easing.in(Easing.cubic)
 };
 
-function LogoImage({
+export function LogoImage({
 	style })
 {
 	return (
 		<Img
 			src={staticFile("icon-300.png")}
-			style={style}
+			style={{
+				position: "relative",
+				width: "100%",
+				height: "100%",
+				...style
+			}}
 		/>
 	);
 }

@@ -7,15 +7,15 @@ const SpringConfig = {
 	stiffness: 150
 };
 
-const Contents = styled.div`
+const PopupWindow = styled(Window)`
+	width: ${unit(20)};
+	margin-top: ${unit(3)};
 	--item-height: ${unit(3)};
-	padding-top: var(--unit);
 `;
 const Selection = styled.div`
 	top: ${({ index }) => mult(index, "item-height")};
-	width: 94%;
+	width: 100%;
 	height: var(--item-height);
-	margin: 0 3%;
 	background: hsl(240, 90%, 93%);
 	position: absolute;
 		
@@ -90,13 +90,11 @@ export default function Popup({
 	const resultsList = recents.slice(1);
 
 	return (
-		<Window>
-			<Contents>
-				<TabList>
-					<Selection index={selectedItem + selectionJitter} />
-					{resultsList.map((tab, i) => <Tab key={i} tab={tab} />)}
-				</TabList>
-			</Contents>
-		</Window>
+		<PopupWindow>
+			<TabList>
+				<Selection index={selectedItem + selectionJitter} />
+				{resultsList.map((tab, i) => <Tab key={i} tab={tab} />)}
+			</TabList>
+		</PopupWindow>
 	);
 }
