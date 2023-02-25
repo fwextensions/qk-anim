@@ -27,17 +27,17 @@ export default function QuicKey()
 		// versions of the colors
 	return (
 		<AbsoluteFill style={blueBackground} data-theme="dark">
-			<Sequence from={t`.5s`} durationInFrames={t`3s`} style={center}>
+			<Sequence name="RecentTab0" from={t`.5s`} durationInFrames={t`3s`} style={center}>
 				<Animate duration=".5s" attributes={{ opacity: [0, 1] }} options={animateLogoOptions}>
 					<Browser recents={tabs} activeTab={0} />
 				</Animate>
 			</Sequence>
-			<Sequence from={t`1.5s`} durationInFrames={t`2s`} style={center}>
+			<Sequence name="Popup" from={t`1.5s`} durationInFrames={t`2s`} style={center}>
 				<Animate from="1.75s" duration=".25s" attributes={{ opacity: [1, 0] }} options={animateLogoOptions}>
  					<Popup recents={tabs} maxIndex={2} />
 				</Animate>
 			</Sequence>
-			<Sequence from={t`3.5s`} durationInFrames={t`1.5s`} style={center}>
+			<Sequence name="RecentTab3" from={t`3.5s`} durationInFrames={t`1.5s`} style={center}>
 				<Animate from=".5s" duration=".5s" attributes={{ opacity: [1, 0] }} options={animateLogoOptions}>
 					<Browser recents={tabs} activeTab={3} />
 				</Animate>
