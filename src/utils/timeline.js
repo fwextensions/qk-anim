@@ -46,8 +46,7 @@ function parseQuantity(
 			const handler = Units[units];
 
 			if (handler) {
-					// frame values have to be whole numbers
-				return Math.round(handler(quantity, config));
+				return handler(quantity, config);
 			}
 		}
 	}
