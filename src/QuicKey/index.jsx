@@ -28,7 +28,7 @@ export default function QuicKey()
 		// versions of the colors
 	return (
 		<AbsoluteFill style={blueBackground} data-theme="dark">
-			<Sequence name="RecentTab0" from={t`.5s`} durationInFrames={t`3s`} style={center}>
+			<Sequence name="Tab5" from={t`.5s`} durationInFrames={t`3s`} style={center}>
 				<Animate duration=".5s" attributes={{ opacity: [0, 1] }} options={animateLogoOptions}>
 					<Browser recents={recents} activeTab={5} />
 				</Animate>
@@ -38,7 +38,7 @@ export default function QuicKey()
  					<Popup recents={recents} maxIndex={2} />
 				</Animate>
 			</Sequence>
-			<Sequence name="RecentTab3" from={t`3.5s`} durationInFrames={t`1s`} style={center}>
+			<Sequence name="Tab1" from={t`3.5s`} durationInFrames={t`1s`} style={center}>
 				<Animate from=".75s" duration=".25s" attributes={{ opacity: [1, 0] }} options={animateLogoOptions}>
 					<Browser recents={recents} activeTab={1} />
 				</Animate>

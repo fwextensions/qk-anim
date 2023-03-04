@@ -7,7 +7,7 @@ const WindowContainer = styled.div`
 	background: var(--win-border-color);
 	position: relative;
 	overflow: hidden;
-	box-shadow: 0 ${unit(4 / 3)} ${unit(8 / 3)} var(--shadow, rgba(0, 0, 0, 0.5));
+	box-shadow: 0 ${unit(4 / 3)} ${unit(8 / 3)} rgba(0, 0, 0, 0.5);
 	display: flex;
 	flex-direction: column;
 `;
