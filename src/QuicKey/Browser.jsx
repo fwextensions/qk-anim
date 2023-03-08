@@ -50,11 +50,11 @@ export default function Browser({
 	activeTab })
 {
 	const tabs = [...recents].sort((a, b) => a.id - b.id);
-	const tabButtons = tabs.map(({ id, favicon }) => {
+	const tabButtons = tabs.map(({ id, favicon }, i) => {
 		const isActive = id === activeTab;
 
 		return (
-			<TabButton style={{ background: isActive ? "var(--win-toolbar-color)" : "none" }}>
+			<TabButton key={i} style={{ background: isActive ? "var(--win-toolbar-color)" : "none" }}>
 				<Favicon style={{ background: favicon, opacity: isActive ? 1 : .5 }} />
 			</TabButton>
 		);

@@ -1,7 +1,7 @@
 import { Composition } from "remotion";
 import QuicKey from "./QuicKey";
 import GlobalStyles, { AnimSize } from "./GlobalStyles";
-import { useConfig } from "./utils/timeline";
+import { useConfig } from "remotion-time";
 
 export default function Root()
 {

@@ -1,4 +1,4 @@
-import { useInterpolate, useTime } from "../utils/timeline";
+import { useInterpolate, useTime } from "remotion-time";
 
 const AttributeStyles = {
 	blur: (value) => ({ filter: `blur(${value}px)` }),

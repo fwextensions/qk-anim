@@ -1,5 +1,5 @@
 import { AbsoluteFill, Easing, Sequence } from "remotion";
-import { useTime } from "../utils/timeline";
+import { useTime } from "remotion-time";
 import { tabs } from "./tabs";
 import Popup from "./Popup";
 import Browser from "./Browser";
